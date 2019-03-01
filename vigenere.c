@@ -22,12 +22,14 @@ int main(int argc, char * argv[])
 	 fcounter = 0;
 	char key[], file[];
 	
+	// if you didn't enter the correct number of arguements
 	if (argc != 4)
 	{
 		printf("Failed to open file. Please make sure that you enter 'gcc -o' followed by the KEY.txt and the FILE.txt\n");
 		return -1;
 	}
 
+	// grabbing arguements 2 and 3 
 	char * pKeyFile = argv[2];
 	char * pPlaintextFile = argv[3];
 
@@ -38,15 +40,19 @@ int main(int argc, char * argv[])
 	}
 
 	FILE * kp[] = fopen(pKeyFile, "r");
-	FILE * fp[512] = fopen(pFile, "r");
+	FILE * fp[512] = fopen(pPlaintextFile, "r");
 
 	printKey(kp);
 	printPlaintext(fp);
-	
+
+	// strips all non-alphabetical characters from kp[]
 	char * key[] = RemoveOtherCharacters(kp[]);
+
+	// converts all uppercase letters to lowercase letters
 	char * key[] = ConvertUppercaseToLowercase(key[]);
 
-	char * newText = encryption(key[], fp[]);
+	// sends key[] & fp[] to be encrypted into newText[]
+	char * newText[] = encryption(key[], fp[]);
 
 	PrintCryptText(newText)
 
@@ -56,6 +62,8 @@ int main(int argc, char * argv[])
 void printKey(char * kp[])
 {
 	int i = 0;
+
+	// loops from the begining to the end of the file
 	while ( i != EOF)
 	{
 		i = fgetc(kp);
@@ -66,6 +74,8 @@ void printKey(char * kp[])
 void printPlaintext(char * fp[])
 {
 	int i = 0;
+
+	// loops from the begining to the end of the file
 	while ( i != EOF)
 	{
 		i = fgetc(fp);
@@ -78,14 +88,19 @@ char RemoveOtherCharacters(char * kp[])
 	int i = 0;
 	int kcounter = 0
 
+	// loops from the begining to the end of the file
 	while ( i != EOF)
 	{
 		i = fgetc(kp);
+
+		// if it's a letter in the alphabet, it'll insert the letter into key[]
 		if ((i >= 'a' && i <= 'z') || (i >= 'A' && i <= 'Z'))
 		{
 			key[kcounter] = i;
 			kcounter++;
 		}
+
+		// if it is not a letter, it will not be included into key[]
 		else
 			break;
 	}
@@ -96,13 +111,19 @@ char RemoveOtherCharacters(char * kp[])
 char ConvertUppercaseToLowercase(char * key[])
 {
 	int i;
+
+	// loops from the begining to the end of key[]
 	while (key[i] != '\0') 
 	{
+		// converting uppercase letter to lowercase letter
       	if (key[i] >= 'A' && key[i] <= 'Z') 
       	{
       		key[i] = key[i] + 32;
       	}
-      	c++;
+
+      	// if i from key[i] != an uppercase letter, it'll do nothing and move to the next letter
+      	else
+      		break;
    	}
 	return key[];
 }
@@ -132,34 +153,34 @@ char encryption(char * key[], char * fp[])
             j = (j - 1);
         }  
  
-        // makes Aa = 0, Zz = 25 for the uppercase letters
+        // makes A-Z into 0-25 for the uppercase letters
         if ((k >= 'A') && (k <= 'Z'))
         {
             k = (k - 'A');
         }
  
-        // makes Aa = 0, Zz = 25 for the lowercase letters
+        // makes a-z into 0-25 for the lowercase letters
 		if ((k >= 'a') && (k <= 'z'))
 		{
 			k = (k - 'a');
 		}
 
-		// encryption
+		// encryption equation
 		w = (fp[i] + k);
 
-		// wrapping after Z for uppercase letters
+		// wrapping after Z for the uppercase letters
 		if (isupper(fp[i]) && (w > 'Z'))
 		{
 			w = (w - 26);
 		}
 
-		// wrapping after z for lowercase letters
+		// wrapping after z for the lowercase letters
 		if (islower(fp[i]) && (w > 'z'))
 		{
 			w = (w - 26);
 		}
 
-		// if there is no character(NULL)
+		// if there is no character(NULL) it'll replace it with 'x' until there are 512 characters
 		if (w = NULL)
 		{
 			x = 'x';
@@ -189,10 +210,14 @@ void PrintCryptText(char * crypt[])
 {
 	int cryptAssist = 0;
 
+	// it'll loop 512 times to print
 	for (finalCounter = 0, i = 0, j = 0; finalCounter <= 512; i++, j++, finalCounter++)
 	{
+		// if it hasn't been 80 characters, it won't skip a line
 		if (j <= 80)
 			printf("%c", crypt[i])
+
+		// if it has been 80 characters, it will skip a line
 		else
 			printf("\n");
 	}

@@ -42,8 +42,19 @@ int main(int argc, char * argv[])
 	FILE * kp[] = fopen(pKeyFile, "r");
 	FILE * fp[512] = fopen(pPlaintextFile, "r");
 
+	// printing "Keytext:"
+	printf("Keytext:");
+	// echoing unedited Key
 	printKey(kp);
+	// new line
+	printf("\n");
+
+	// printing "Plaintext:"
+	printf("Plaintext:");
+	// echoing unedited Plaintext
 	printPlaintext(fp);
+	// new line
+	printf("\n");
 
 	// strips all non-alphabetical characters from kp[]
 	char * key[] = RemoveOtherCharacters(kp[]);
@@ -54,6 +65,9 @@ int main(int argc, char * argv[])
 	// sends key[] & fp[] to be encrypted into newText[]
 	char * newText[] = encryption(key[], fp[]);
 
+	// printing "Ciphertext:"
+	printf("Ciphertext:");
+	// sending the char arry newText to print function
 	PrintCryptText(newText)
 
  	return 0;

@@ -18,15 +18,18 @@
 
 int main(int argc, char * argv[])
 {
+	int i = 0;
+	int kcounter = 0, fcounter = 0;
+	char key[], file[];
 	
-	if (argc != 3)
+	if (argc != 4)
 	{
 		printf("Failed to open file. Please make sure that you enter 'gcc -o' followed by the KEY.txt and the FILE.txt\n");
 		return -1;
 	}
 
-	char * pKeyFile = argv[3];
-	char * pPlaintextFile = argv[4];
+	char * pKeyFile = argv[2];
+	char * pPlaintextFile = argv[3];
 
 	if (NULL == fp)
 	{
@@ -37,30 +40,61 @@ int main(int argc, char * argv[])
 	FILE * kp = fopen(pKeyFile, "r");
 	FILE * fp = fopen(pFile, "r");
 	
-	int counter;
-	
-	while ()
+	while ( i != EOF)
 	{
-		fscanf(kp, "%c", char * ikp[])
+		i = fgetc(kp);
+		key[kcounter] = i
+		kcounter++;
 	}
 	
-	while ()
+	while ( i != EOF)
 	{
-		fscanf(fp, "%c", char * ifp[512])
+		
 	}
 	
-	
-	RemoveOtherCharacters()
-	ConvertUppercaseToLowercase()
-	
-	printf("%c\n", ikp[i]);
-	printf("%c\n", ifp[i]);
-	
+	printf("%c\n", ikp[]);
+	printf("%c\n", ifp[]);
+		
 	int textLen = strlen(ifp);
 	int keyLen = strlen(ikp);
-	int x, key;
+	int x, key;  
 	
-    // encryption
+	printf("%c\n", cryptText[])
+
+ 	return 0;
+}
+
+char RemoveOtherCharacters()
+{
+	
+	int i, j;
+	for (i = 0; line[i] != '\0'; ++i)
+	{
+		while (!(line[i] >= 'a' && line[i] <= 'z') || (line[i] >= 'A' && line[i] <= 'Z'))
+		{
+			for (j = i; line[j] != '\0';++j)
+				line[j] = line[j+1];
+			line[j = '\0']
+		}
+	}
+
+}
+
+char ConvertUppercaseToLowercase()
+{
+	int i;
+	for(i = 0; fp[i] != '\0'; i++)
+	{
+		if (fp[i] >= 65 && fp[i] <= 90)
+			fp[i] = fp[i] + 32;
+		else
+			fp[i] = fp[i] - 32;
+	}
+}
+
+void encryption()
+{
+	// encryption
     for(int i = 0, j = 0, textLen = strlen(ifp); i < textLen; i++, j++)
     {
         // start the key again if key shorter than textLen
@@ -90,20 +124,20 @@ int main(int argc, char * argv[])
             key = (key - 'a');
         }
  
-		// encryption
-		x = (ifp[i] + key);
+	// encryption
+	x = (ifp[i] + key);
 
-		// wrapping after Z for uppercase letters
-		if (isupper(ifp[i]) && (x > 'Z'))
-		{
-			x = (x - 26);
-		}
+	// wrapping after Z for uppercase letters
+	if (isupper(ifp[i]) && (x > 'Z'))
+	{
+		x = (x - 26);
+	}
 
-		// wrapping after z for lowercase letters
-		if (islower(ifp[i]) && (x > 'z'))
-		{
-			x = (x - 26);
-		}
+	// wrapping after z for lowercase letters
+	if (islower(ifp[i]) && (x > 'z'))
+	{
+		x = (x - 26);
+	}
  
         // if character is alphabetical, print encrypted result
         if (isalpha(ifp[i]))
@@ -117,37 +151,5 @@ int main(int argc, char * argv[])
             printf("%c", ifp[i]);
         }
  
-    }  
-	
-	printf("%c\n", cryptText[])
-
- 	return 0;
-}
-
-char RemoveOtherCharacters()
-{
-	
-	int i, j;
-	for (i = 0; line[i] != '\0'; ++i)
-	{
-		while (!(line[i] >= 'a' && line[i] <= 'z') || (line[i] >= 'A' && line[i] <= 'Z'))
-		{
-			for (j = i; line[j] != '\0';++j)
-				line[j] = line[j+1];
-			line[j = '\0']
-		}
-	}
-
-}
-
-char ConvertUppercaseToLowercase()
-{
-	int i, j;
-	for(i = 0; fp[i] != '\0'; i++)
-	{
-		if (fp[i] >= 65 && fp[i] <= 90)
-			fp[i] = fp[i] + 32;
-		else
-			fp[i] = fp[i] + 32;
-	}
+    }
 }
